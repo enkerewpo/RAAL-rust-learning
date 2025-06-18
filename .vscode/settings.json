@@ -1,0 +1,8 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "chapter1/Cargo.toml",
+        "chapter3/Cargo.toml",
+        "chapter4_5/Cargo.toml",
+        "chapter8/Cargo.toml",
+    ]
+}
