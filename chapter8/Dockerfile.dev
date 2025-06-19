@@ -1,0 +1,24 @@
+# Development Dockerfile for VSCode Remote Development
+FROM rust:1-slim-bullseye
+
+# Install additional development tools and dependencies
+# RUN apt-get update && apt-get install -y \
+#     gdb \
+#     lldb \
+#     build-essential \
+#     pkg-config \
+#     libc6-dev \
+#     && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /workspace
+
+# Create a non-root user for development
+RUN useradd -m -s /bin/bash developer && \
+    chown -R developer:developer /workspace
+
+# Switch to non-root user
+USER developer
+
+# Expose port for debugging (optional)
+EXPOSE 9000 

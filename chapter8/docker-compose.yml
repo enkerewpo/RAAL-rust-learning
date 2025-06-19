@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  chapter8:
+    build: .
+    image: chapter8-rust
+    container_name: chapter8-container
+    # Uncomment the lines below if you need interactive mode
+    # stdin_open: true
+    # tty: true 
