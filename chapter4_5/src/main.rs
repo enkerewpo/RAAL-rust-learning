@@ -3,7 +3,6 @@
 mod channel;
 mod spinlock;
 
-use channel::Channel;
 use spinlock::SpinLock;
 use std::sync::Arc;
 use std::thread;
@@ -32,17 +31,15 @@ fn main() {
     println!("Final result: {}", result);
     assert_eq!(result, num_threads * num_loops, "SpinLock failed!");
     // testing message passing between threads
-    let channel = Channel::new();
-    let t = thread::current();
+    let (sender, receiver) = channel::channel::<String>();
     thread::scope(|s| {
         s.spawn(|| {
-            channel.send("hello world!");
-            t.unpark();
+            sender.send(String::from("hello world!"));
         });
-        while !channel.is_ready() {
+        while !receiver.is_ready() {
             thread::park();
         }
-        let message = channel.receive();
+        let message = receiver.receive();
         println!("Received message: {}", message);
         assert_eq!(message, "hello world!");
     });
